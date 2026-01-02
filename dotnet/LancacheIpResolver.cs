@@ -24,6 +24,27 @@
                 return _detectedServer.IpAddress.ToString();
             }
 
+            // Check for explicit Lancache IP override via environment variable (useful for Docker)
+            var lancacheIpOverride = Environment.GetEnvironmentVariable("LANCACHE_IP");
+            if (!string.IsNullOrWhiteSpace(lancacheIpOverride))
+            {
+                _ansiConsole.LogMarkupLine($"Using Lancache server from LANCACHE_IP environment variable: {Cyan(lancacheIpOverride)}");
+                if (IPAddress.TryParse(lancacheIpOverride, out var ip))
+                {
+                    _detectedServer = new DetectedServer(lancacheIpOverride, ip);
+                    return lancacheIpOverride;
+                }
+                // If it's a hostname, resolve it
+                var addresses = await Dns.GetHostAddressesAsync(lancacheIpOverride);
+                var ipv4 = addresses.FirstOrDefault(e => e.AddressFamily == AddressFamily.InterNetwork);
+                if (ipv4 != null)
+                {
+                    _detectedServer = new DetectedServer(lancacheIpOverride, ipv4);
+                    return ipv4.ToString();
+                }
+                throw new LancacheNotFoundException($"Could not resolve LANCACHE_IP '{lancacheIpOverride}' to an IP address");
+            }
+
             await _ansiConsole.StatusSpinner().StartAsync("Detecting Lancache server...", async _ =>
             {
                 _detectedServer = await DetectLancacheServerAsync(cdnUrl);
