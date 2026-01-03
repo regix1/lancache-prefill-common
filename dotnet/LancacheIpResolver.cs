@@ -69,14 +69,12 @@
             var localMachineName = Dns.GetHostName();
             var possibleLancacheUrls = new List<string> { cdnUrl, "localhost" };
             
-            // Add Docker-specific addresses for container environments
-            var dockerGateway = await GetDockerNetworkGatewayAsync();
-            if (dockerGateway != null)
+            // Add Docker gateway by reading network interface (works in any container)
+            var defaultGateway = GetDefaultGateway();
+            if (defaultGateway != null)
             {
-                possibleLancacheUrls.Add(dockerGateway);
+                possibleLancacheUrls.Add(defaultGateway.ToString());
             }
-            possibleLancacheUrls.Add("host.docker.internal"); // Docker Desktop (Windows/Mac)
-            possibleLancacheUrls.Add("172.17.0.1"); // Default Docker bridge gateway (Linux)
             possibleLancacheUrls.Add(localMachineName);
 
             foreach (var url in possibleLancacheUrls)
@@ -154,39 +152,25 @@
         }
 
         /// <summary>
-        /// Gets the Docker network gateway address from /etc/hosts.
-        /// Docker adds an entry for 'host.docker.internal' that maps to the host address.
+        /// Gets the default gateway IP from the container's network interface.
+        /// In Docker, this will be the bridge network gateway (e.g., 172.17.0.1).
         /// </summary>
-        private static async Task<string> GetDockerNetworkGatewayAsync()
+        private static IPAddress GetDefaultGateway()
         {
             try
             {
-                if (!File.Exists("/etc/hosts"))
-                {
-                    return null;
-                }
-
-                var hostsFile = await File.ReadAllTextAsync("/etc/hosts");
-                if (!hostsFile.Contains("host.docker.internal"))
-                {
-                    return null;
-                }
-
-                // Parse /etc/hosts to get the IP for host.docker.internal
-                var match = System.Text.RegularExpressions.Regex.Match(
-                    hostsFile, 
-                    @"((?:\d{1,3}\.){3}\d{1,3})\s+host\.docker\.internal");
-                
-                if (match.Success)
-                {
-                    return match.Groups[1].Value;
-                }
+                return NetworkInterface
+                    .GetAllNetworkInterfaces()
+                    .Where(n => n.OperationalStatus == OperationalStatus.Up)
+                    .Where(n => n.NetworkInterfaceType != NetworkInterfaceType.Loopback)
+                    .SelectMany(n => n.GetIPProperties()?.GatewayAddresses ?? Enumerable.Empty<GatewayIPAddressInformation>())
+                    .Select(g => g?.Address)
+                    .FirstOrDefault(a => a != null && a.AddressFamily == AddressFamily.InterNetwork);
             }
             catch
             {
-                // Ignore errors - this is just a detection helper
+                return null;
             }
-            return null;
         }
 
         private sealed class DetectedServer
