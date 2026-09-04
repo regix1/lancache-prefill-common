@@ -14,6 +14,9 @@
 
         private static readonly HttpClient _httpClient = new HttpClient { Timeout = TimeSpan.FromMilliseconds(500) };
 
+        // Well beyond any resolver that is going to answer at all, so this can only fire on one that has gone dark.
+        private static readonly TimeSpan _dnsTimeout = TimeSpan.FromSeconds(90);
+
         public static async Task<string> ResolveLancacheIpAsync(IAnsiConsole ansiConsole, string cdnUrl)
         {
             _ansiConsole ??= ansiConsole;
@@ -35,7 +38,7 @@
                     return lancacheIpOverride;
                 }
                 // If it's a hostname, resolve it
-                var addresses = await Dns.GetHostAddressesAsync(lancacheIpOverride);
+                var addresses = await ResolveHostAddressesAsync(lancacheIpOverride);
                 var ipv4 = addresses.FirstOrDefault(e => e.AddressFamily == AddressFamily.InterNetwork);
                 if (ipv4 != null)
                 {
@@ -82,7 +85,7 @@
                 _ansiConsole.LogMarkupVerbose($"Checking for Lancache at {Cyan(url)}");
                 //TODO make this do ipv6 correctly
                 // Gets a list of ipv4 addresses, Lancache cannot use ipv6 currently
-                var ipAddresses = (await Dns.GetHostAddressesAsync(url))
+                var ipAddresses = (await ResolveHostAddressesAsync(url))
                     .Where(e => e.AddressFamily == AddressFamily.InterNetwork)
                     .ToArray();
 
@@ -116,7 +119,7 @@
 
         private static async Task DetectPublicIpAsync(string cdnUrl)
         {
-            var ipAddresses = await Dns.GetHostAddressesAsync(cdnUrl);
+            var ipAddresses = await ResolveHostAddressesAsync(cdnUrl);
             var resolvedIp = ipAddresses.First(e => e.AddressFamily == AddressFamily.InterNetwork);
 
             if (ipAddresses.Any(e => e.IsPrivateAddress()))
@@ -134,7 +137,7 @@
 
         private static async Task IsLancacheServerRunningAsync(string cdnUrl)
         {
-            var ipAddresses = await Dns.GetHostAddressesAsync(cdnUrl);
+            var ipAddresses = await ResolveHostAddressesAsync(cdnUrl);
             var resolvedIp = ipAddresses.First(e => e.AddressFamily == AddressFamily.InterNetwork);
 
             try
@@ -148,6 +151,30 @@
                                             " however no Lancache can be found at that address.  The Lancache server may possibly not be running." +
                                             " Please check your configuration, and try again.\n"));
                 throw new LancacheNotFoundException($"No Lancache server detected at {resolvedIp}");
+            }
+        }
+
+        /// <summary>
+        /// Resolves a hostname to its addresses, bounded so that a DNS server which accepts the query and then
+        /// never answers fails detection instead of stalling it silently.  The overload of GetHostAddressesAsync
+        /// used here takes neither a timeout nor a token, so the bound has to be applied around it.
+        ///
+        /// Throws LancacheNotFoundException rather than the raw TimeoutException because a resolver that has gone
+        /// dark means no app can be prefilled at all, and callers already treat that exception as a reason to stop
+        /// the run rather than fail one app and move on to the next.
+        /// </summary>
+        private static async Task<IPAddress[]> ResolveHostAddressesAsync(string host)
+        {
+            try
+            {
+                return await Dns.GetHostAddressesAsync(host).WaitAsync(_dnsTimeout);
+            }
+            catch (TimeoutException e)
+            {
+                throw new LancacheNotFoundException(
+                    $"DNS did not answer within {_dnsTimeout.TotalSeconds} seconds while looking up '{host}'.  " +
+                    "The Lancache cannot be found until name resolution works, so check that the DNS server this machine uses, " +
+                    "typically a lancache-dns container, is running and reachable.", e);
             }
         }
 
