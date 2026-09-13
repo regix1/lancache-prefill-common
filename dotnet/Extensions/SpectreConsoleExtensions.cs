@@ -9,6 +9,8 @@
         /// <returns></returns>
         public static IAnsiConsole CreateAnsiConsole(this IConsole console)
         {
+            ArgumentNullException.ThrowIfNull(console);
+
             return AnsiConsole.Create(new AnsiConsoleSettings
             {
                 Ansi = AnsiSupport.Detect,
@@ -55,6 +57,7 @@
 
         public static Markup ToMarkup(this Object obj)
         {
+            ArgumentNullException.ThrowIfNull(obj);
             return new Markup(obj.ToString());
         }
     }

@@ -17,8 +17,13 @@
         // Well beyond any resolver that is going to answer at all, so this can only fire on one that has gone dark.
         private static readonly TimeSpan _dnsTimeout = TimeSpan.FromSeconds(90);
 
+#pragma warning disable CA1054 // Hostnames and IP literals are accepted before a request URI is constructed.
         public static async Task<string> ResolveLancacheIpAsync(IAnsiConsole ansiConsole, string cdnUrl)
+#pragma warning restore CA1054
         {
+            ArgumentNullException.ThrowIfNull(ansiConsole);
+            ArgumentException.ThrowIfNullOrWhiteSpace(cdnUrl);
+
             _ansiConsole ??= ansiConsole;
 
             // Returned cached server if previously detected
@@ -38,7 +43,7 @@
                     return lancacheIpOverride;
                 }
                 // If it's a hostname, resolve it
-                var addresses = await ResolveHostAddressesAsync(lancacheIpOverride);
+                var addresses = await ResolveHostAddressesAsync(lancacheIpOverride).ConfigureAwait(false);
                 var ipv4 = addresses.FirstOrDefault(e => e.AddressFamily == AddressFamily.InterNetwork);
                 if (ipv4 != null)
                 {
@@ -50,8 +55,8 @@
 
             await _ansiConsole.StatusSpinner().StartAsync("Detecting Lancache server...", async _ =>
             {
-                _detectedServer = await DetectLancacheServerAsync(cdnUrl);
-            });
+                _detectedServer = await DetectLancacheServerAsync(cdnUrl).ConfigureAwait(false);
+            }).ConfigureAwait(false);
 
             if (_detectedServer != null)
             {
@@ -60,8 +65,8 @@
             }
 
             // If no server was detected, checks for common configuration issues
-            await DetectPublicIpAsync(cdnUrl);
-            await IsLancacheServerRunningAsync(cdnUrl);
+            await DetectPublicIpAsync(cdnUrl).ConfigureAwait(false);
+            await IsLancacheServerRunningAsync(cdnUrl).ConfigureAwait(false);
 
             throw new LancacheNotFoundException("Unable to detect Lancache server!");
         }
@@ -71,7 +76,7 @@
             // Tries to resolve poisoned DNS record, then localhost, then Docker's host, and finally the local machine
             var localMachineName = Dns.GetHostName();
             var possibleLancacheUrls = new List<string> { cdnUrl, "localhost" };
-            
+
             // Add Docker gateway by reading network interface (works in any container)
             var defaultGateway = GetDefaultGateway();
             if (defaultGateway != null)
@@ -85,7 +90,7 @@
                 _ansiConsole.LogMarkupVerbose($"Checking for Lancache at {Cyan(url)}");
                 //TODO make this do ipv6 correctly
                 // Gets a list of ipv4 addresses, Lancache cannot use ipv6 currently
-                var ipAddresses = (await ResolveHostAddressesAsync(url))
+                var ipAddresses = (await ResolveHostAddressesAsync(url).ConfigureAwait(false))
                     .Where(e => e.AddressFamily == AddressFamily.InterNetwork)
                     .ToArray();
 
@@ -101,7 +106,7 @@
                     try
                     {
                         // If the IP resolves to a private subnet, then we want to query the Lancache server to see if it is actually there.
-                        var response = await _httpClient.GetAsync(new Uri($"http://{ip}/lancache-heartbeat"));
+                        var response = await _httpClient.GetAsync(new Uri($"http://{ip}/lancache-heartbeat")).ConfigureAwait(false);
                         if (response.Headers.Contains("X-LanCache-Processed-By"))
                         {
                             return new DetectedServer(url, ip);
@@ -119,7 +124,7 @@
 
         private static async Task DetectPublicIpAsync(string cdnUrl)
         {
-            var ipAddresses = await ResolveHostAddressesAsync(cdnUrl);
+            var ipAddresses = await ResolveHostAddressesAsync(cdnUrl).ConfigureAwait(false);
             var resolvedIp = ipAddresses.First(e => e.AddressFamily == AddressFamily.InterNetwork);
 
             if (ipAddresses.Any(e => e.IsPrivateAddress()))
@@ -137,13 +142,13 @@
 
         private static async Task IsLancacheServerRunningAsync(string cdnUrl)
         {
-            var ipAddresses = await ResolveHostAddressesAsync(cdnUrl);
+            var ipAddresses = await ResolveHostAddressesAsync(cdnUrl).ConfigureAwait(false);
             var resolvedIp = ipAddresses.First(e => e.AddressFamily == AddressFamily.InterNetwork);
 
             try
             {
                 // Attempting to see if the Lancache server at the resolved IP is running
-                await _httpClient.GetAsync(new Uri($"http://{resolvedIp}/lancache-heartbeat"));
+                await _httpClient.GetAsync(new Uri($"http://{resolvedIp}/lancache-heartbeat")).ConfigureAwait(false);
             }
             catch (Exception e) when (e is HttpRequestException | e is TaskCanceledException)
             {
@@ -167,7 +172,7 @@
         {
             try
             {
-                return await Dns.GetHostAddressesAsync(host).WaitAsync(_dnsTimeout);
+                return await Dns.GetHostAddressesAsync(host).WaitAsync(_dnsTimeout).ConfigureAwait(false);
             }
             catch (TimeoutException e)
             {
@@ -194,10 +199,12 @@
                     .Select(g => g?.Address)
                     .FirstOrDefault(a => a != null && a.AddressFamily == AddressFamily.InterNetwork);
             }
+#pragma warning disable CA1031 // Network enumeration is optional and platform implementations throw different exceptions.
             catch
             {
                 return null;
             }
+#pragma warning restore CA1031
         }
 
         private sealed class DetectedServer

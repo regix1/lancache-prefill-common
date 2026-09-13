@@ -91,6 +91,6 @@
             FileLogger.LogException(e);
         }
 
-        private static string FormattedTime => $"[[{DateTime.Now.ToString("h:mm:ss tt")}]]";
+        private static string FormattedTime => $"[[{DateTime.Now.ToString("h:mm:ss tt", CultureInfo.CurrentCulture)}]]";
     }
 }

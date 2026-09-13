@@ -15,7 +15,7 @@
             lock (LockObject)
             {
                 var messageNoAnsi = message.RemoveMarkup();
-                File.AppendAllText(LogFilePath, $"[{DateTime.Now.ToString("h:mm:ss tt")}] {messageNoAnsi}\n");
+                File.AppendAllText(LogFilePath, $"[{DateTime.Now.ToString("h:mm:ss tt", CultureInfo.CurrentCulture)}] {messageNoAnsi}\n");
             }
         }
 
@@ -24,7 +24,7 @@
             // Avoids writing to the same file concurrently.
             lock (LockObject)
             {
-                var messageWithTimestamp = $"[{DateTime.Now.ToString("h:mm:ss tt")}] {message.RemoveMarkup()}";
+                var messageWithTimestamp = $"[{DateTime.Now.ToString("h:mm:ss tt", CultureInfo.CurrentCulture)}] {message.RemoveMarkup()}";
                 var formattedMessage = $"{messageWithTimestamp.PadRight(70) + stopwatch.FormatElapsedString()}\n";
 
                 File.AppendAllText(LogFilePath, formattedMessage);
@@ -33,17 +33,20 @@
 
         public static void LogException(Exception e)
         {
+            ArgumentNullException.ThrowIfNull(e);
             Log(e.ToString());
         }
 
         public static void LogException(string message, Exception e)
         {
+            ArgumentNullException.ThrowIfNull(e);
             Log(message);
             Log(e.ToString());
         }
 
         public static void LogExceptionNoStackTrace(string message, Exception e)
         {
+            ArgumentNullException.ThrowIfNull(e);
             Log($"{message} : {e.GetType()} - {e.Message}");
         }
     }

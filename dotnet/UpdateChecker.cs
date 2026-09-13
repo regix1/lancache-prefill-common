@@ -11,6 +11,10 @@ namespace LancachePrefill.Common
         /// <param name="repoName">Expected to be in the format "username/repoName"</param>
         public static async Task CheckForUpdatesAsync(Type executingAppType, string repoName, string tempDir)
         {
+            ArgumentNullException.ThrowIfNull(executingAppType);
+            ArgumentException.ThrowIfNullOrWhiteSpace(repoName);
+            ArgumentException.ThrowIfNullOrWhiteSpace(tempDir);
+
             string lastUpdateCheckFile = Path.Combine(tempDir, "lastUpdateCheck.txt");
             try
             {
@@ -28,25 +32,29 @@ namespace LancachePrefill.Common
                 httpClient.DefaultRequestHeaders.Add("User-Agent", repoName);
 
                 // Query GitHub for a list of all available releases
-                var response = await httpClient.GetStringAsync(new Uri($"https://api.github.com/repos/{repoName}/releases"));
+                var response = await httpClient.GetStringAsync(new Uri($"https://api.github.com/repos/{repoName}/releases")).ConfigureAwait(false);
                 GithubRelease latestRelease = JsonSerializer.Deserialize(response, SerializationContext.Default.ListGithubRelease)
                                                             .OrderByDescending(e => e.CreatedAt)
                                                             .First();
 
                 // Compare the available releases against our known releases
-                var latestVersion = latestRelease.TagName.Replace("v", "");
+                var latestVersion = latestRelease.TagName.Replace("v", "", StringComparison.Ordinal);
                 var assemblyVersion = executingAppType.Assembly.GetName().Version.ToString(3);
                 if (latestVersion != assemblyVersion)
                 {
                     WriteUpdateMessage(assemblyVersion, latestVersion, repoName);
                 }
 
-                await File.WriteAllTextAsync(lastUpdateCheckFile, DateTime.Now.ToString());
+                await File.WriteAllTextAsync(
+                    lastUpdateCheckFile,
+                    DateTime.Now.ToString(CultureInfo.InvariantCulture)).ConfigureAwait(false);
             }
+#pragma warning disable CA1031 // Update checks are best effort and must never prevent startup.
             catch
             {
                 // Doesn't matter if this fails.  Its non-critical to the application's function
             }
+#pragma warning restore CA1031
         }
 
         private static void WriteUpdateMessage(string currentVersion, string updateVersion, string repoName)

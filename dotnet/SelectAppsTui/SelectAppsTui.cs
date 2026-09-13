@@ -22,8 +22,10 @@
         /// </summary>
         private readonly List<string> _previouslySelectedApps;
 
-        public SelectAppsTui(List<TuiAppInfo> availableGames, bool showReleaseDate = true, bool showPlaytime = true)
+        public SelectAppsTui(IReadOnlyCollection<TuiAppInfo> availableGames, bool showReleaseDate = true, bool showPlaytime = true)
         {
+            ArgumentNullException.ThrowIfNull(availableGames);
+
             _showReleaseDate = showReleaseDate;
             _showPlaytime = showPlaytime;
 
@@ -31,7 +33,7 @@
                                                     .Select(e => e.AppId)
                                                     .ToList();
 
-            InitLayout(availableGames);
+            InitLayout(availableGames.ToList());
 
             // Configuring status bar actions
             _statusBar.Items = new StatusItem[] {
@@ -69,7 +71,7 @@
                 new StatusItem (Key.Enter, "~Enter~ to Save", () =>
                 {
                     // Prevents the user from hitting ENTER without selecting anything to prefill
-                    if (!ListViewDataSource.SelectedApps.Any())
+                    if (ListViewDataSource.SelectedApps.Count == 0)
                     {
                         var message = $"No apps have been selected!  {Environment.NewLine}" +
                                             "At least one app is required to continue, and can be selected using the space bar.";
@@ -138,7 +140,7 @@
             currentlySelected.SymmetricExceptWith(_previouslySelectedApps);
 
             // If there are any differences at all, then the user has unsaved changes
-            return currentlySelected.Any();
+            return currentlySelected.Count > 0;
         }
     }
 }

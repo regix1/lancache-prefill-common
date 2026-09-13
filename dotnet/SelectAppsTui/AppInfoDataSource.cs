@@ -91,18 +91,18 @@
             if (!_showPlaytime && !_showReleaseDate)
             {
                 // First column needs to be +3 additional characters, to account for the ' - ' added by the list control
-                return String.Format("{0,-58}", "   Title");
+                return String.Format(CultureInfo.CurrentCulture, "{0,-58}", "   Title");
             }
 
-            return String.Format("{0,-58}{1,8}{2,17}", "   Title", "Released", "Recent Playtime");
+            return String.Format(CultureInfo.CurrentCulture, "{0,-58}{1,8}{2,17}", "   Title", "Released", "Recent Playtime");
         }
 
-        private string FormatItemString(TuiAppInfo item)
+        private static string FormatItemString(TuiAppInfo item)
         {
             var nameFormatted = item.Title.Truncate(55).PadRightUnicode(55);
 
             var hoursPlayed2Weeks = item.HoursPlayed != null ? $"{item.HoursPlayed:N1} hours" : null;
-            return string.Format("{0}{1,8}{2,17}", nameFormatted, item.ReleaseDate?.Date.ToString("yyyy"), hoursPlayed2Weeks);
+            return string.Format(CultureInfo.CurrentCulture, "{0}{1,8}{2,17}", nameFormatted, item.ReleaseDate?.Date.ToString("yyyy", CultureInfo.CurrentCulture), hoursPlayed2Weeks);
         }
 
         public void Render(ListView container, ConsoleDriver driver, bool selected, int item, int col, int line, int width, int start = 0)
@@ -112,7 +112,7 @@
         }
 
         // A slightly adapted method from: https://github.com/gui-cs/Terminal.Gui/blob/fc1faba7452ccbdf49028ac49f0c9f0f42bbae91/Terminal.Gui/Views/ListView.cs#L433-L461
-        private void RenderUstr(ConsoleDriver driver, ustring ustr, int width, int start = 0)
+        private static void RenderUstr(ConsoleDriver driver, ustring ustr, int width, int start = 0)
         {
             int used = 0;
             int index = start;

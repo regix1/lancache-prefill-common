@@ -4,6 +4,7 @@
     {
         public static string FormatElapsedString(this Stopwatch stopwatch)
         {
+            ArgumentNullException.ThrowIfNull(stopwatch);
             return FormatElapsedString(stopwatch.Elapsed);
         }
 
@@ -16,13 +17,13 @@
         {
             if (elapsed.TotalHours > 1)
             {
-                return elapsed.ToString(@"h\:mm\:ss\.ff");
+                return elapsed.ToString(@"h\:mm\:ss\.ff", CultureInfo.InvariantCulture);
             }
             if (elapsed.TotalMinutes > 1)
             {
-                return elapsed.ToString(@"mm\:ss\.ff");
+                return elapsed.ToString(@"mm\:ss\.ff", CultureInfo.InvariantCulture);
             }
-            return elapsed.ToString(@"ss\.ffff");
+            return elapsed.ToString(@"ss\.ffff", CultureInfo.InvariantCulture);
         }
     }
 }

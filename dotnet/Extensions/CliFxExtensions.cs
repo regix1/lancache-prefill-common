@@ -9,6 +9,9 @@
         /// </summary>
         public static CliApplicationBuilder SetExecutableNamePlatformAware(this CliApplicationBuilder builder, string appName)
         {
+            ArgumentNullException.ThrowIfNull(builder);
+            ArgumentException.ThrowIfNullOrWhiteSpace(appName);
+
             if (IsWindows())
             {
                 appName += ".exe";

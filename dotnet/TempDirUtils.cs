@@ -23,7 +23,7 @@
                 string pathHome = Environment.GetEnvironmentVariable("HOME");
                 if (pathHome == null)
                 {
-                    throw new Exception("Could not determine HOME directory");
+                    throw new InvalidOperationException("Could not determine HOME directory");
                 }
 
                 string pathXdgCacheHome = Environment.GetEnvironmentVariable("XDG_CACHE_HOME");

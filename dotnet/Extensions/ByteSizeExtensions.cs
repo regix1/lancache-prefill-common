@@ -9,6 +9,7 @@
 
         public static string CalculateBitrate(this ref ByteSize byteSize, Stopwatch timer)
         {
+            ArgumentNullException.ThrowIfNull(timer);
             return CalculateBitrate(ref byteSize, timer.Elapsed);
         }
 
@@ -19,10 +20,10 @@
             var megabits = averageSpeed.MegaBytes * 8;
             if (megabits < 1000)
             {
-                return $"{megabits.ToString("0.##")} Mbit/s";
+                return $"{megabits.ToString("0.##", CultureInfo.CurrentCulture)} Mbit/s";
             }
 
-            return $"{(averageSpeed.GigaBytes * 8).ToString("0.##")} Gbit/s";
+            return $"{(averageSpeed.GigaBytes * 8).ToString("0.##", CultureInfo.CurrentCulture)} Gbit/s";
         }
     }
 }

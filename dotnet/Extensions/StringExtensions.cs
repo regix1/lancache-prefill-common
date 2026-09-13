@@ -17,6 +17,8 @@
         /// </summary>
         public static string PadRightUnicode(this string value, int totalWidth)
         {
+            ArgumentNullException.ThrowIfNull(value);
+
             var unicodeWidth = value.Sum(t => UnicodeCalculator.GetWidth(t));
 
             // Adjusts the total padding by the additional width of the unicode characters

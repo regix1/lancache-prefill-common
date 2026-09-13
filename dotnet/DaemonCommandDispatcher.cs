@@ -218,7 +218,9 @@ public sealed class DaemonCommandDispatcher : IAsyncDisposable
         }
 
         startGate.TrySetCanceled(new CancellationToken(canceled: true));
+#pragma warning disable VSTHRD003 // This tracked task is deliberately started before admission is finalized.
         await task.ConfigureAwait(false);
+#pragma warning restore VSTHRD003
         if (dispatcherStopping)
         {
             throw new InvalidOperationException("The dispatcher is stopping.");
@@ -271,7 +273,9 @@ public sealed class DaemonCommandDispatcher : IAsyncDisposable
         var serializedGateEntered = false;
         try
         {
+#pragma warning disable VSTHRD003 // This gate is intentionally completed by the admission path.
             await startGate.ConfigureAwait(false);
+#pragma warning restore VSTHRD003
             if (lane == DaemonCommandLane.Serialized)
             {
                 await _serializedGate.WaitAsync(clientCancellationToken).ConfigureAwait(false);
@@ -288,10 +292,12 @@ public sealed class DaemonCommandDispatcher : IAsyncDisposable
             startGate.IsCanceled || clientCancellationToken.IsCancellationRequested)
         {
         }
+#pragma warning disable CA1031 // The observer is the terminal boundary for every handler failure.
         catch (Exception exception)
         {
             _exceptionObserver?.Invoke(exception);
         }
+#pragma warning restore CA1031
         finally
         {
             if (serializedGateEntered)

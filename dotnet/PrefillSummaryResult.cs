@@ -14,6 +14,8 @@
 
         public void RenderSummaryTable(IAnsiConsole ansiConsole)
         {
+            ArgumentNullException.ThrowIfNull(ansiConsole);
+
             var table = new Table
             {
                 Border = TableBorder.MinimalHeavyHead
@@ -23,24 +25,24 @@
 
             // Number of updated apps
             table.AddColumn(new TableColumn(Cyan("Updated")).Centered());
-            rowFields.Add(Updated.ToString());
+            rowFields.Add(Updated.ToString(CultureInfo.CurrentCulture));
 
             // Apps already up to date
             table.AddColumn(new TableColumn(Green("Up To Date")).Centered());
-            rowFields.Add(AlreadyUpToDate.ToString());
+            rowFields.Add(AlreadyUpToDate.ToString(CultureInfo.CurrentCulture));
 
             // Failed
             if (FailedApps > 0)
             {
                 table.AddColumn(new TableColumn(Red("Failed")).Centered());
-                rowFields.Add(FailedApps.ToString());
+                rowFields.Add(FailedApps.ToString(CultureInfo.CurrentCulture));
             }
 
             // Unowned
             if (UnownedAppsSkipped > 0)
             {
                 table.AddColumn(new TableColumn(LightYellow("Unowned")).Centered());
-                rowFields.Add(UnownedAppsSkipped.ToString());
+                rowFields.Add(UnownedAppsSkipped.ToString(CultureInfo.CurrentCulture));
             }
             table.AddRow(rowFields.ToArray());
 

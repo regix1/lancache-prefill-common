@@ -9,6 +9,8 @@
         /// <returns>Returns true if the IP is a private address, false if it isn't private</returns>
         public static bool IsPrivateAddress(this IPAddress toTest)
         {
+            ArgumentNullException.ThrowIfNull(toTest);
+
             if (IPAddress.IsLoopback(toTest))
             {
                 return true;
