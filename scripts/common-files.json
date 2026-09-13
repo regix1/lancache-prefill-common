@@ -1,0 +1,217 @@
+{
+  "version": 1,
+  "normalization": "UTF-8 without BOM; CRLF normalized to LF",
+  "files": [
+    {
+      "path": "dotnet/OwnedOperationCoordinator.cs",
+      "after": "d607f9755e1a6dc3e74d0c1271e3ea2be62e90290fd2659325de91cc070ceeae",
+      "before": {
+        "H:/_git/lancache-prefill-common": "12cdf188aea079ec8dfd315e170c62be82406fa1d9d08b85a3a1f710c8fc7632",
+        "H:/_git/steam-prefill-daemon/LancachePrefill.Common": "12cdf188aea079ec8dfd315e170c62be82406fa1d9d08b85a3a1f710c8fc7632",
+        "H:/_git/epic-prefill-daemon/LancachePrefill.Common": "12cdf188aea079ec8dfd315e170c62be82406fa1d9d08b85a3a1f710c8fc7632",
+        "H:/_git/xbox-prefill-daemon/LancachePrefill.Common": "12cdf188aea079ec8dfd315e170c62be82406fa1d9d08b85a3a1f710c8fc7632",
+        "H:/_git/battlenet-prefill-daemon/LancachePrefill.Common": "12cdf188aea079ec8dfd315e170c62be82406fa1d9d08b85a3a1f710c8fc7632",
+        "H:/_git/riot-prefill-daemon/LancachePrefill.Common": "12cdf188aea079ec8dfd315e170c62be82406fa1d9d08b85a3a1f710c8fc7632"
+      }
+    },
+    {
+      "path": "dotnet/OwnedOperationModels.cs",
+      "after": "4d46d6ec4d112781e103c5c4f34459236fff46045a0fd9086274bd2531982d90",
+      "before": {
+        "H:/_git/lancache-prefill-common": null,
+        "H:/_git/steam-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/epic-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/xbox-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/battlenet-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/riot-prefill-daemon/LancachePrefill.Common": null
+      }
+    },
+    {
+      "path": "dotnet/RunProgress.cs",
+      "after": "0fd5865acf681791ac98dfaf194a8852b4be827aab119b14dce5009d288d1f29",
+      "before": {
+        "H:/_git/lancache-prefill-common": "ea5aeef8bd5fe5321c9f259ef1cc41b3a6d3d8a5ec01a467100a2b234c594d38",
+        "H:/_git/steam-prefill-daemon/LancachePrefill.Common": "ea5aeef8bd5fe5321c9f259ef1cc41b3a6d3d8a5ec01a467100a2b234c594d38",
+        "H:/_git/epic-prefill-daemon/LancachePrefill.Common": "ea5aeef8bd5fe5321c9f259ef1cc41b3a6d3d8a5ec01a467100a2b234c594d38",
+        "H:/_git/xbox-prefill-daemon/LancachePrefill.Common": "ea5aeef8bd5fe5321c9f259ef1cc41b3a6d3d8a5ec01a467100a2b234c594d38",
+        "H:/_git/battlenet-prefill-daemon/LancachePrefill.Common": "ea5aeef8bd5fe5321c9f259ef1cc41b3a6d3d8a5ec01a467100a2b234c594d38",
+        "H:/_git/riot-prefill-daemon/LancachePrefill.Common": "ea5aeef8bd5fe5321c9f259ef1cc41b3a6d3d8a5ec01a467100a2b234c594d38"
+      }
+    },
+    {
+      "path": "dotnet/RunProgressModels.cs",
+      "after": "fa01fb17dac5b4b6cce4e8534e19f87915c5cd6712a79870f5d26519cb026855",
+      "before": {
+        "H:/_git/lancache-prefill-common": null,
+        "H:/_git/steam-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/epic-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/xbox-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/battlenet-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/riot-prefill-daemon/LancachePrefill.Common": null
+      }
+    },
+    {
+      "path": "dotnet/RequestBudget.cs",
+      "after": "be68b919008727edccd5ca8aee7c223edb643bdd3521fa46ebd4de0f8652be63",
+      "before": {
+        "H:/_git/lancache-prefill-common": null,
+        "H:/_git/steam-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/epic-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/xbox-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/battlenet-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/riot-prefill-daemon/LancachePrefill.Common": null
+      }
+    },
+    {
+      "path": "dotnet/RequestBudgetModels.cs",
+      "after": "122f03f16a6cf7c419324a096ebc741cddb436cd4ecf1f1a665fb07b29a897ff",
+      "before": {
+        "H:/_git/lancache-prefill-common": null,
+        "H:/_git/steam-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/epic-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/xbox-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/battlenet-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/riot-prefill-daemon/LancachePrefill.Common": null
+      }
+    },
+    {
+      "path": "dotnet/ItemClaims.cs",
+      "after": "857c051ce2b794a43d7c3624f785aacbabb463dc7d875d65145f88e2bf49a1c7",
+      "before": {
+        "H:/_git/lancache-prefill-common": null,
+        "H:/_git/steam-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/epic-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/xbox-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/battlenet-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/riot-prefill-daemon/LancachePrefill.Common": null
+      }
+    },
+    {
+      "path": "dotnet/PrefillProtocol.cs",
+      "after": "e473149823457fcaf521d8a10bef7c4c3de0ba3843139ff8b7def60aaabed562",
+      "before": {
+        "H:/_git/lancache-prefill-common": "2265a8da9eea2e7712923473b268ee1c69af077dfcb8ed832d050b075188b38a",
+        "H:/_git/steam-prefill-daemon/LancachePrefill.Common": "2265a8da9eea2e7712923473b268ee1c69af077dfcb8ed832d050b075188b38a",
+        "H:/_git/epic-prefill-daemon/LancachePrefill.Common": "2265a8da9eea2e7712923473b268ee1c69af077dfcb8ed832d050b075188b38a",
+        "H:/_git/xbox-prefill-daemon/LancachePrefill.Common": "2265a8da9eea2e7712923473b268ee1c69af077dfcb8ed832d050b075188b38a",
+        "H:/_git/battlenet-prefill-daemon/LancachePrefill.Common": "2265a8da9eea2e7712923473b268ee1c69af077dfcb8ed832d050b075188b38a",
+        "H:/_git/riot-prefill-daemon/LancachePrefill.Common": "2265a8da9eea2e7712923473b268ee1c69af077dfcb8ed832d050b075188b38a"
+      }
+    },
+    {
+      "path": "dotnet/PrefillProtocolModels.cs",
+      "after": "1c8a8d4ee0b2fcd8ce023df521cba4301ae35bc2b7ba75ebe75d6d208ac02a93",
+      "before": {
+        "H:/_git/lancache-prefill-common": null,
+        "H:/_git/steam-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/epic-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/xbox-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/battlenet-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/riot-prefill-daemon/LancachePrefill.Common": null
+      }
+    },
+    {
+      "path": "dotnet/LancachePrefill.Common.csproj",
+      "after": "87b7c445874053718c44e9abc5403b964fe1f18943ef5812e4f56d634bae4466",
+      "before": {
+        "H:/_git/lancache-prefill-common": "87b7c445874053718c44e9abc5403b964fe1f18943ef5812e4f56d634bae4466",
+        "H:/_git/steam-prefill-daemon/LancachePrefill.Common": "87b7c445874053718c44e9abc5403b964fe1f18943ef5812e4f56d634bae4466",
+        "H:/_git/epic-prefill-daemon/LancachePrefill.Common": "87b7c445874053718c44e9abc5403b964fe1f18943ef5812e4f56d634bae4466",
+        "H:/_git/xbox-prefill-daemon/LancachePrefill.Common": "87b7c445874053718c44e9abc5403b964fe1f18943ef5812e4f56d634bae4466",
+        "H:/_git/battlenet-prefill-daemon/LancachePrefill.Common": "87b7c445874053718c44e9abc5403b964fe1f18943ef5812e4f56d634bae4466",
+        "H:/_git/riot-prefill-daemon/LancachePrefill.Common": "87b7c445874053718c44e9abc5403b964fe1f18943ef5812e4f56d634bae4466"
+      }
+    },
+    {
+      "path": "tests/LancachePrefill.Common.Tests/OwnedOperationCoordinatorTests.cs",
+      "after": "f45157914eb8052bc93de9ea5dac13776fda142a9bbb99ec2fc29018e6873e7c",
+      "before": {
+        "H:/_git/lancache-prefill-common": "74652a11271eb5d4cea07e8c8320d06a5877d67711939798a9d5e8abfca8d595",
+        "H:/_git/steam-prefill-daemon/LancachePrefill.Common": "74652a11271eb5d4cea07e8c8320d06a5877d67711939798a9d5e8abfca8d595",
+        "H:/_git/epic-prefill-daemon/LancachePrefill.Common": "74652a11271eb5d4cea07e8c8320d06a5877d67711939798a9d5e8abfca8d595",
+        "H:/_git/xbox-prefill-daemon/LancachePrefill.Common": "74652a11271eb5d4cea07e8c8320d06a5877d67711939798a9d5e8abfca8d595",
+        "H:/_git/battlenet-prefill-daemon/LancachePrefill.Common": "74652a11271eb5d4cea07e8c8320d06a5877d67711939798a9d5e8abfca8d595",
+        "H:/_git/riot-prefill-daemon/LancachePrefill.Common": "74652a11271eb5d4cea07e8c8320d06a5877d67711939798a9d5e8abfca8d595"
+      }
+    },
+    {
+      "path": "tests/LancachePrefill.Common.Tests/RunProgressTests.cs",
+      "after": "661301ec64638f891219626a4fbae02a02b0286a8832ac3fd23e65117971c25d",
+      "before": {
+        "H:/_git/lancache-prefill-common": "9ade8f0c250c74b752037ab1993e7c506ae199f45157c8ed620d91147a0be632",
+        "H:/_git/steam-prefill-daemon/LancachePrefill.Common": "9ade8f0c250c74b752037ab1993e7c506ae199f45157c8ed620d91147a0be632",
+        "H:/_git/epic-prefill-daemon/LancachePrefill.Common": "9ade8f0c250c74b752037ab1993e7c506ae199f45157c8ed620d91147a0be632",
+        "H:/_git/xbox-prefill-daemon/LancachePrefill.Common": "9ade8f0c250c74b752037ab1993e7c506ae199f45157c8ed620d91147a0be632",
+        "H:/_git/battlenet-prefill-daemon/LancachePrefill.Common": "9ade8f0c250c74b752037ab1993e7c506ae199f45157c8ed620d91147a0be632",
+        "H:/_git/riot-prefill-daemon/LancachePrefill.Common": "9ade8f0c250c74b752037ab1993e7c506ae199f45157c8ed620d91147a0be632"
+      }
+    },
+    {
+      "path": "tests/LancachePrefill.Common.Tests/RequestBudgetTests.cs",
+      "after": "ad58956d1f638a8d12545fd87ef97330f2181634d009df761a0091a2420835f7",
+      "before": {
+        "H:/_git/lancache-prefill-common": null,
+        "H:/_git/steam-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/epic-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/xbox-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/battlenet-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/riot-prefill-daemon/LancachePrefill.Common": null
+      }
+    },
+    {
+      "path": "tests/LancachePrefill.Common.Tests/ItemClaimsTests.cs",
+      "after": "b9f7e204f38245f9199c0b62c8334d288416a43eed0ff86439d8fb0a326d4aea",
+      "before": {
+        "H:/_git/lancache-prefill-common": null,
+        "H:/_git/steam-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/epic-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/xbox-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/battlenet-prefill-daemon/LancachePrefill.Common": null,
+        "H:/_git/riot-prefill-daemon/LancachePrefill.Common": null
+      }
+    },
+    {
+      "path": "tests/LancachePrefill.Common.Tests/PrefillProtocolTests.cs",
+      "after": "b459932ede8e7c727a1f20f6a829fe4f95b348b8ee892d29afe4a087d686e6fb",
+      "before": {
+        "H:/_git/lancache-prefill-common": "3e680b87b1bf49e79828ff6b17231f91f7ffdaee05c9d82e81f974d49d091db1",
+        "H:/_git/steam-prefill-daemon/LancachePrefill.Common": "3e680b87b1bf49e79828ff6b17231f91f7ffdaee05c9d82e81f974d49d091db1",
+        "H:/_git/epic-prefill-daemon/LancachePrefill.Common": "3e680b87b1bf49e79828ff6b17231f91f7ffdaee05c9d82e81f974d49d091db1",
+        "H:/_git/xbox-prefill-daemon/LancachePrefill.Common": "3e680b87b1bf49e79828ff6b17231f91f7ffdaee05c9d82e81f974d49d091db1",
+        "H:/_git/battlenet-prefill-daemon/LancachePrefill.Common": "3e680b87b1bf49e79828ff6b17231f91f7ffdaee05c9d82e81f974d49d091db1",
+        "H:/_git/riot-prefill-daemon/LancachePrefill.Common": "3e680b87b1bf49e79828ff6b17231f91f7ffdaee05c9d82e81f974d49d091db1"
+      }
+    },
+    {
+      "path": "tests/LancachePrefill.Common.Tests/LancachePrefill.Common.Tests.csproj",
+      "after": "939bc881ce6f3295b4cffc025f5f47ceaff1a565e65619b20e6a3a4227a6379d",
+      "before": {
+        "H:/_git/lancache-prefill-common": "939bc881ce6f3295b4cffc025f5f47ceaff1a565e65619b20e6a3a4227a6379d",
+        "H:/_git/steam-prefill-daemon/LancachePrefill.Common": "939bc881ce6f3295b4cffc025f5f47ceaff1a565e65619b20e6a3a4227a6379d",
+        "H:/_git/epic-prefill-daemon/LancachePrefill.Common": "939bc881ce6f3295b4cffc025f5f47ceaff1a565e65619b20e6a3a4227a6379d",
+        "H:/_git/xbox-prefill-daemon/LancachePrefill.Common": "939bc881ce6f3295b4cffc025f5f47ceaff1a565e65619b20e6a3a4227a6379d",
+        "H:/_git/battlenet-prefill-daemon/LancachePrefill.Common": "939bc881ce6f3295b4cffc025f5f47ceaff1a565e65619b20e6a3a4227a6379d",
+        "H:/_git/riot-prefill-daemon/LancachePrefill.Common": "939bc881ce6f3295b4cffc025f5f47ceaff1a565e65619b20e6a3a4227a6379d"
+      }
+    },
+    {
+      "path": "scripts/sync-common.ps1",
+      "after": "45616e55944091195d5cd12a0e9c34a090658630f2a10c12404a5e2e3b397771",
+      "before": {
+        "H:/_git/lancache-prefill-common": "1a06dcd66e73e027ca8ac19ac40d0d852e5c62cff216f5d704e96059f3393f85",
+        "H:/_git/steam-prefill-daemon/LancachePrefill.Common": "1a06dcd66e73e027ca8ac19ac40d0d852e5c62cff216f5d704e96059f3393f85",
+        "H:/_git/epic-prefill-daemon/LancachePrefill.Common": "1a06dcd66e73e027ca8ac19ac40d0d852e5c62cff216f5d704e96059f3393f85",
+        "H:/_git/xbox-prefill-daemon/LancachePrefill.Common": "1a06dcd66e73e027ca8ac19ac40d0d852e5c62cff216f5d704e96059f3393f85",
+        "H:/_git/battlenet-prefill-daemon/LancachePrefill.Common": "1a06dcd66e73e027ca8ac19ac40d0d852e5c62cff216f5d704e96059f3393f85",
+        "H:/_git/riot-prefill-daemon/LancachePrefill.Common": "1a06dcd66e73e027ca8ac19ac40d0d852e5c62cff216f5d704e96059f3393f85"
+      }
+    }
+  ],
+  "manifestBefore": {
+    "H:/_git/steam-prefill-daemon/LancachePrefill.Common": "4fc38845430328eb1c4976393287bf955fab65f8baa7c1a683039c085f406eb2",
+    "H:/_git/epic-prefill-daemon/LancachePrefill.Common": "4fc38845430328eb1c4976393287bf955fab65f8baa7c1a683039c085f406eb2",
+    "H:/_git/xbox-prefill-daemon/LancachePrefill.Common": "4fc38845430328eb1c4976393287bf955fab65f8baa7c1a683039c085f406eb2",
+    "H:/_git/battlenet-prefill-daemon/LancachePrefill.Common": "4fc38845430328eb1c4976393287bf955fab65f8baa7c1a683039c085f406eb2",
+    "H:/_git/riot-prefill-daemon/LancachePrefill.Common": "4fc38845430328eb1c4976393287bf955fab65f8baa7c1a683039c085f406eb2"
+  }
+}

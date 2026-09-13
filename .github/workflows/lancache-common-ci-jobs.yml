@@ -10,6 +10,7 @@ jobs:
     - uses: actions/checkout@v3
       with:
         submodules: true
+    - run: dotnet restore ./LancachePrefill.Common.sln
     - run: dotnet format ./LancachePrefill.Common.sln --verify-no-changes
     
   build-test:
@@ -19,6 +20,6 @@ jobs:
     - uses: actions/checkout@v3
       with:
         submodules: true
-    - run: dotnet restore
-    - run: dotnet build --no-restore -c Release /p:TreatWarningsAsErrors=true
-    - run: dotnet test --no-restore -c Release /p:WarningLevel=0
+    - run: dotnet restore ./LancachePrefill.Common.sln
+    - run: dotnet build ./LancachePrefill.Common.sln --no-restore --no-incremental -c Release /p:TreatWarningsAsErrors=true
+    - run: dotnet test ./LancachePrefill.Common.sln --no-build -c Release
