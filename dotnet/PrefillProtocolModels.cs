@@ -13,6 +13,13 @@ public sealed record RunOptions
     public int MaxConcurrency { get; init; }
     public int? TopCount { get; init; }
     public IReadOnlyList<string> CachedDepots { get; init; } = Array.Empty<string>();
+    public IReadOnlyList<CachedAppInput> CachedApps { get; init; } = Array.Empty<CachedAppInput>();
+}
+
+public sealed record CachedAppInput
+{
+    public required string AppId { get; init; }
+    public string? Revision { get; init; }
 }
 
 public sealed record OperationPage(

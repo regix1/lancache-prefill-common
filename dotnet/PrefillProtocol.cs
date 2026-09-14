@@ -67,6 +67,7 @@ public sealed class PrefillProtocol
             AppIds = options.AppIds == null ? null : NormalizeIds(options.AppIds),
             OperatingSystems = NormalizeIds(options.OperatingSystems),
             CachedDepots = NormalizeIds(options.CachedDepots),
+            CachedApps = NormalizeCachedApps(options.CachedApps),
             MaxConcurrency = Math.Min(options.MaxConcurrency, MaxConcurrentRequests)
         };
     }
@@ -83,6 +84,28 @@ public sealed class PrefillProtocol
             if (seen.Add(id))
             {
                 result.Add(id);
+            }
+        }
+        return result.AsReadOnly();
+    }
+
+    private static System.Collections.ObjectModel.ReadOnlyCollection<CachedAppInput> NormalizeCachedApps(
+        IEnumerable<CachedAppInput> apps)
+    {
+        ArgumentNullException.ThrowIfNull(apps);
+        var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        var result = new List<CachedAppInput>();
+        foreach (var app in apps)
+        {
+            ArgumentNullException.ThrowIfNull(app);
+            ArgumentException.ThrowIfNullOrWhiteSpace(app.AppId);
+            if (app.AppId.Length > 1024)
+            {
+                throw new ArgumentException("Item identifiers must not exceed 1024 characters.", nameof(apps));
+            }
+            if (seen.Add(app.AppId))
+            {
+                result.Add(new CachedAppInput { AppId = app.AppId, Revision = app.Revision });
             }
         }
         return result.AsReadOnly();
@@ -109,6 +132,12 @@ public sealed class PrefillProtocol
         AppendIds(options.AppIds);
         AppendIds(options.OperatingSystems);
         AppendIds(options.CachedDepots);
+        Append(options.CachedApps.Count.ToString(CultureInfo.InvariantCulture));
+        foreach (var app in options.CachedApps)
+        {
+            Append(app.AppId);
+            Append(app.Revision ?? "absent");
+        }
         return Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(text.ToString())));
     }
 

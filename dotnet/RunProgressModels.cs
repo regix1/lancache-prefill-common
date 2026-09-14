@@ -14,6 +14,7 @@ public sealed record RunItemSnapshot
     public long Sequence { get; init; }
     public long BytesTransferred { get; init; }
     public long? TotalBytes { get; init; }
+    public string? CacheRevision { get; init; }
 }
 
 public sealed record RunSnapshot
